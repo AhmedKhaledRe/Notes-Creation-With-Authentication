@@ -1,18 +1,19 @@
 import { Injectable } from "@angular/core";
 import { Http ,Headers,RequestOptions} from "@angular/http";
 import { Router } from "@angular/router";
+import { environment } from 'src/environments/environment';
 
- 
 
 @Injectable()
 export class AuthService{
 
-    BASE_URL = 'http://localhost:3000/auth';
+    BASE_URL: string = environment.BASE_URL_AUTH;
+
     NAME_KEY = 'name';
     TOKEN_KEY = 'token';
 
     constructor(private http : Http ,private router : Router){}
-    
+
     get name(){
         return localStorage.getItem(this.NAME_KEY);
     }
@@ -24,7 +25,7 @@ export class AuthService{
     register(user){
         delete user.confirmPassword;
         this.http.post(this.BASE_URL + '/register', user).subscribe(
-            res => 
+            res =>
             {
                 this.authenticate(res);
             }
@@ -53,14 +54,14 @@ export class AuthService{
 
         localStorage.setItem(this.TOKEN_KEY , res.json().token)
         localStorage.setItem(this.NAME_KEY , res.json().firstName)
-        
+
         this.router.navigate(['/']);
 
     }
-        
-      
-        
-      
+
+
+
+
         logout() {
             //this.user = null;
             localStorage.removeItem(this.NAME_KEY);

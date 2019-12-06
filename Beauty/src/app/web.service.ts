@@ -4,12 +4,12 @@ import {  MatSnackBar } from "@angular/material";
 import { Subject } from "rxjs";
 import { AuthService } from "./auth.service";
 import { map } from 'rxjs/operators';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class WebService{
 
-    BASE_URL = 'http://localhost:3000/api'
+    BASE_URL: string = environment.BASE_URL;
 
     private messageStore = [];
 

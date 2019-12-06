@@ -17,7 +17,6 @@ import { AuthService } from "./auth.service";
 import { LoginComponent } from "./login.component";
 import { UserComponent } from "./user.component";
 import { routes } from "./routes.component";
-import { JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -30,7 +29,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    MatInputModule, 
+    MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatCommonModule,
@@ -39,16 +38,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes,{ enableTracing: true }), // <-- debugging purposes only)
-    ReactiveFormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: function  tokenGetter() {
-              console.log(localStorage.getItem('token'));
-             return     localStorage.getItem('token');},
-        whitelistedDomains: ['localhost:4200'],
-        blacklistedRoutes: ['localhost:4200/user']
-      }
-    })
+    ReactiveFormsModule
   ],
   providers: [WebService , AuthService],
   bootstrap: [AppComponent]

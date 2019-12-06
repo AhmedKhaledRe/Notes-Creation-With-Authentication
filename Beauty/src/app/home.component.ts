@@ -10,7 +10,7 @@ import { AuthService } from "./auth.service";
     <div *ngIf="!auth.isAuthenticated">
       <login></login>
     </div>
-    <div *ngIf="auth.isAuthenticated">
+    <div *ngIf="!!auth.isAuthenticated">
       <new-messages ></new-messages>
     </div>
     `,
@@ -18,6 +18,6 @@ import { AuthService } from "./auth.service";
 })
 export class HomeComponent {
 
-  constructor(private auth : AuthService){}
+  constructor(public auth : AuthService){}
 
 }

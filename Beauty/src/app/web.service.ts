@@ -17,8 +17,8 @@ export class WebService{
 
     messages = this.messageSubject.asObservable();
 
-    constructor(private http: Http , private sb : MatSnackBar ,private auth : AuthService) { 
-        this.getMessages();
+    constructor(private http: Http , private sb : MatSnackBar ,private auth : AuthService) {
+        this.getMessages(null);
     }
 
     getMessages(user){
@@ -26,12 +26,12 @@ export class WebService{
             this.http.get(this.BASE_URL + '/messages'+ user).subscribe(response => {
                 this.messageStore = response.json();
                 this.messageSubject.next(this.messageStore);
-            },error =>{ 
+            },error =>{
                 //this.handleError("unable to get messages");
             });
     }
 
-    /*async getMessages(user){ 
+    /*async getMessages(user){
         try {
             user = (user) ? '/' + user : '' ;
             var response = await this.http.get(this.BASE_URL + '/messages'+ user).toPromise();
@@ -41,9 +41,9 @@ export class WebService{
         }
     }*/
 
-            
-         
-    
+
+
+
     async postMessage(message){
         try {
             var response = await this.http.post(this.BASE_URL + '/messages',message).toPromise();
@@ -54,11 +54,11 @@ export class WebService{
     }
 
     getUser(){
-        return this.http.get(this.BASE_URL+ '/users/me',this.auth.tokenHeaders).pipe(map(res => res.json())); 
+        return this.http.get(this.BASE_URL+ '/users/me',this.auth.tokenHeaders).pipe(map(res => res.json()));
     }
 
     saveUser(userData){
-        return this.http.post(this.BASE_URL+ '/users/me',userData,this.auth.tokenHeaders).pipe(map(res => res.json())); 
+        return this.http.post(this.BASE_URL+ '/users/me',userData,this.auth.tokenHeaders).pipe(map(res => res.json()));
     }
 
     /*getUser(){
@@ -71,7 +71,7 @@ export class WebService{
         var response = await this.http.post(this.BASE_URL + '/messages',message).subscribe(response => {
         this.messageStore.push(response.json());
         this.messageSubject.next(this.messageStore);
-    },error =>{ 
+    },error =>{
         this.handleError("unable to post messages");
     });
 }*/
